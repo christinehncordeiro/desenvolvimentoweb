@@ -28,24 +28,34 @@ function criarFormulario($formulario){
 //função pra criar campo
 
 function criaTextoNumero($chave, $valor){
-    echo "<div class='itemWrapper'>" . "<label for='". $valor['id'] . "'>" . $valor['label'] . "</label>" . "<input type='" . $valor['tipo'] . "id='" . $chave . "placeholder='" . $valor['placeholder'] . "'>" . "</input>" . "</div>";
+    echo "<div class='itemWrapper'>" . "<label for='". $valor['nome'] . "'>" . $valor['label'] . "</label>" . "<input type='" . $valor['tipo'] . "id='" . $chave . "placeholder='" . $valor['placeholder'] . "'>" . "</input>" . "</div>";
 }
 function criaTextarea($chave, $valor){
-    echo "<div class='itemWrapper'>" . "<label for='" . $valor['id'] . "'>" . $valor['label'] . "</label>" . "<textarea id='" . $chave . "placeholder='" . $valor['placeholder'] . "'>" . "</textarea>" . "</div>";
+    echo "<div class='itemWrapper'>" . "<label for='" . $valor['label'] . "'>" . $valor['label'] . "</label>" . "<textarea id='" . $chave . "placeholder='" . $valor['placeholder'] . "'>" . "</textarea>" . "</div>";
 }
 function criaResetSubmitButton($chave, $valor){
     echo "<div class='itemWrapperBTNsSubmitReset'>" . "<button type='" . $valor['tipo'] . "id='" . $chave . "name='" . $valor['nome'] . "'>" . $valor['label'] . "</button>" . "</div>";
 }
 function criaSelect($chave, $valor){
-    echo "<div class='itemWrapper'>" . "<label for='" . $valor['id'] . "'>" . $valor['label'] . "</label>" . "<select id='" . $chave . "name='" . $valor['nome'] . "required>";
-    foreach($valor['itens'] as $chavinha => $valorzin){
-        echo "<option value='" . $chavinha . ">" . $valorzin . "</option>";
+    echo "<div class='itemWrapper'>" . "<label for='" . $valor['nome'] . "'>" . $valor['label'] . "</label>" . "<select id='" . $chave . "name='" . $valor['nome'] . "required>";
+    foreach($valor['opcoes'] as $indice => $campo){
+        echo "<option value='" . $indice . ">" . $campo . "</option>";
     }
     echo "</select>" . "</div>";
 }
+
 /*function criaCheckboxRadio($chave, $valor){
     echo "<div class='itemWrapper'>" . "<label>" . $chave . "</label>" . "<input type='" . $valor['tipo'] . "id='" . $chave . 
 }*/
+function criaCheckboxRadio($chave, $valor){
+    echo"<label>".$valor['label']."</label>";
+    foreach($valor['opcoes'] as $indice=>$campo){
+        echo"<input type=".$valor['tipo']." id=".$valor['nome']."_".$indice." name=".$valor['nome']." value=".$indice.">";
+        echo"<label for=".$valor['nome']."_".$indice.">".$campo."</label>";
+    }
+}
+
+
 
 
 function criaCampo($chave, $valor){
@@ -61,8 +71,10 @@ function criaCampo($chave, $valor){
     if($valor['tipo'] == 'select'){
         criaSelect($chave, $valor);
     }
-    /*if($valor['tipo'] == 'checkbox' || $valor['tipo'] == 'radio'){
+    if($valor['tipo'] == 'checkbox' || $valor['tipo'] == 'radio'){
         criaCheckboxRadio($chave, $valor);
-    }*/
+    }
 }
+
+criarFormulario($formulario);
 ?>
