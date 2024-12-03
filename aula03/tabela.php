@@ -66,7 +66,13 @@ function calculaIdade(string $dataNascimento): int {
 //$estadoGet= $_GET["estado"];
 $pessoasFiltradas = array_filter ($pessoas, function($pessoa, $indice){
     $idade=calculaIdade($pessoa["dtNascimento"]);
-    if((!empty($_GET["nome"]))&&stripos($pessoa["nome"],$_GET["nome"])> -1&&(!empty($_GET["idade"]))&&($_GET["idade"]==$idade)&&(!empty($_GET["cidade"]))&&stripos($pessoa["cidade"],$_GET["cidade"])&&(!empty($_GET["estado"]))&&($_GET["estado"]==$pessoa["estado"])){
+    
+    if(
+    ((!empty($_GET["nome"]) && stripos($pessoa["nome"],$_GET["nome"])> -1) || empty($_GET["nome"]))
+    && ((!empty($_GET["idade"]) && ($_GET["idade"]==$idade))|| empty($_GET["idade"]))
+    && ((!empty($_GET["cidade"]) && stripos($pessoa["cidade"],$_GET["cidade"])>-1)|| empty($_GET["cidade"]))
+    && ((!empty($_GET["estado"]) && ($_GET["estado"]==$pessoa["estado"]))|| empty($_GET["estado"]))){
+
         return true;
     }return false;
 }, ARRAY_FILTER_USE_BOTH);
@@ -75,8 +81,8 @@ $MontarTabela = function ($dados): string{
     foreach($dados as $chave => $valor){
         $retorno .= "<tr><td>".$valor['nome']."</td>".
         "<td>".$valor['dtNascimento']."</td>".
-        "<td>".$valor['cidade']."</td>".
-        "<td>".$valor['estado']."</td></tr>";
+        "<td>".$valor['estado']."</td>".
+        "<td>".$valor['cidade']."</td></tr>";
     }
     $retorno .= "</table>";
     return $retorno;
