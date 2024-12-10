@@ -1,10 +1,12 @@
-<html>
+<!DOCTYPE html>
 <head>
     <title>Aula do dia 26/11</title>
     <script src="script.js"></script>
 </head>
 <body>
 <?php
+
+
     $cidadesEstados = array(
         "AC" => array("Rio Branco", "Cruzeiro do Sul", "Sena Madureira", "Tarauacá"),
         "AL" => array("Maceió", "Arapiraca", "Palmeira dos Índios", "Rio Largo"),

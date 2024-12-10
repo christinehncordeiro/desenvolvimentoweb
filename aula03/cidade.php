@@ -1,4 +1,6 @@
 <?php
+
+
 $cidadesEstados = array(
     "AC" => array("Rio Branco", "Cruzeiro do Sul", "Sena Madureira", "Tarauacá"),
     "AL" => array("Maceió", "Arapiraca", "Palmeira dos Índios", "Rio Largo"),
@@ -28,7 +30,6 @@ $cidadesEstados = array(
     "SE" => array("Aracaju", "Nossa Senhora do Socorro", "Lagarto", "Itabaiana"),
     "TO" => array("Palmas", "Araguaína", "Gurupi", "Porto Nacional")
 );
-
 if(!empty($_POST["estado"])){
     echo json_encode($cidadesEstados[$_POST["estado"]]);
 }

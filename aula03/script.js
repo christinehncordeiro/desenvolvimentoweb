@@ -1,3 +1,4 @@
+//aaa
 /*function carregaCidades(campo){
     var form=document.getElementsByTagName("form")[0];
     form.setAttribute("action"," ");
@@ -15,10 +16,11 @@ function pegaValorEstado(){
 function criaOptionsCidade(resposta){
     var selectCidade = document.getElementById("cidade");
     limpaSelect(selectCidade);
+    console.log(resposta);
     for(var cidade of resposta){
-        var optionCid = document.createNodeIterator("option");
+        var optionCid = document.createElement("option");
         optionCid.setAttribute("value", cidade);
-        optionCid.innerContent=cidade;
+        optionCid.textContent=cidade;
         selectCidade.appendChild(optionCid);
     }
 }
@@ -29,12 +31,15 @@ function limpaSelect(campo){
     }
 }
 function carregaCidades(){
-    var corpo = {"estado": pegaValorEstado()};
+    //var corpo = {"estado": pegaValorEstado()};
+    var formulario=new FormData();
+    formulario.append("estado",pegaValorEstado());
     fetch("http://localhost/christinedesenvolvimentoweb/aula03/cidade.php",{
         mode: 'no-cors',
-        method:"POST", headers:{"content-type":"application-json",  "Access-Control-Allow-Origin": 'origin-list'},body:JSON.stringify(corpo)})
-        .then(resposta=>{
-            criaOptionsCidade(resposta);
+        method:"POST", headers:{"content-type":"application-json",  "Access-Control-Allow-Origin": 'origin-list'},body:formulario})
+        .then(async resposta=>{
+            var cidades=await resposta.json();
+            criaOptionsCidade(cidades);
         })
         .catch(error=>console.log(error));
 }
